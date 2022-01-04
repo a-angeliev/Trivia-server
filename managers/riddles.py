@@ -1,9 +1,10 @@
 from werkzeug.exceptions import NotFound
 
 from db import db
+from models import UsersModel
 from models.riddles import RiddlesModel
 from util.decorators import check_length_questions_answers
-
+from models.enums import State, RoleType
 
 class RiddlesManager:
     @staticmethod
@@ -37,5 +38,19 @@ class RiddlesManager:
         db.session.commit()
 
     @staticmethod
-    def get_all():
-        return RiddlesModel.query.all()
+    def get_all(user):
+        if isinstance(user, UsersModel):
+            if user.role == RoleType.admin:
+                return RiddlesModel.query.all()
+        return RiddlesModel.query.filter_by(status=State.available).all()
+
+    @staticmethod
+    def get_by_id(user, id_):
+        mapper = {
+            RoleType.admin: RiddlesModel.query.filter_by(id=id_).first(),
+            RoleType.user: RiddlesModel.query.filter_by(id=id_).filter_by(status=State.available).first()
+        }
+        if isinstance(user, UsersModel):
+            if not mapper[user.role]:
+                raise NotFound("This riddle does not exist.")
+            return mapper[user.role]

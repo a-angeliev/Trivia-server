@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource
 
-from managers.auth import auth
+from managers.auth import auth, AuthManager
 from managers.riddles import RiddlesManager
 from models.enums import RoleType
 from schemas.request.riddles import RiddlesCreateRequestSchema
@@ -10,9 +10,10 @@ from util.decorators import validate_schema, permission_required
 
 
 class ListCreateRiddle(Resource):
+    @auth.login_required
     def get(self):
-        # TODO add logic for diffrent roles
-        riddles = RiddlesManager.get_all()
+        user = auth.current_user()
+        riddles = RiddlesManager.get_all(user)
         schema = RiddlesCreateResponseSchema()
         return schema.dump(riddles, many=True)
 
@@ -26,8 +27,12 @@ class ListCreateRiddle(Resource):
 
 
 class RiddleDetails(Resource):
+    @auth.login_required
     def get(self, id_):
-        pass
+        user = auth.current_user()
+        riddles = RiddlesManager.get_by_id(user, id_)
+        schema = RiddlesCreateResponseSchema()
+        return schema.dump(riddles)
 
     @auth.login_required
     @permission_required(RoleType.admin)

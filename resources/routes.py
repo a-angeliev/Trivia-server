@@ -1,9 +1,12 @@
 from resources.auth import Register, Login
+from resources.events import CreateEvents, EventAction
 from resources.riddles import ListCreateRiddle, RiddleDetails
 
 routes = (
     (Register, "/register"),
     (Login, "/login"),
-    (ListCreateRiddle, "/admins/riddles"),
-    (RiddleDetails, "/admins/riddles/<int:id_>"),
+    (ListCreateRiddle, "/riddles"),
+    (RiddleDetails, "/riddles/<int:id_>"),
+    (CreateEvents, "/riddles/<int:id_>/events"),
+    (EventAction, "/event"),
 )
