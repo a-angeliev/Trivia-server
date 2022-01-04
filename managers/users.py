@@ -1,8 +1,9 @@
 from psycopg2.errorcodes import UNIQUE_VIOLATION
-from werkzeug.exceptions import BadRequest, InternalServerError
+from werkzeug.exceptions import BadRequest, InternalServerError, NotFound
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from db import db
+from models import RoleType
 from models.users import UsersModel
 
 
@@ -32,3 +33,13 @@ class UsersManager:
             raise BadRequest("Wrong email or password")
 
         return user
+
+    @staticmethod
+    def create_admin(email_data):
+        admin = UsersModel.query.filter_by(email=email_data["email"]).first()
+        if not admin:
+            raise NotFound("This user does not exist.")
+        admin.role = RoleType.admin
+        db.session.add(admin)
+        db.session.commit()
+        return 201

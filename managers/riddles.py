@@ -5,6 +5,8 @@ from models import UsersModel
 from models.riddles import RiddlesModel
 from util.decorators import check_length_questions_answers
 from models.enums import State, RoleType
+from util.mappers import mapper_role_query
+
 
 class RiddlesManager:
     @staticmethod
@@ -46,11 +48,11 @@ class RiddlesManager:
 
     @staticmethod
     def get_by_id(user, id_):
-        mapper = {
-            RoleType.admin: RiddlesModel.query.filter_by(id=id_).first(),
-            RoleType.user: RiddlesModel.query.filter_by(id=id_).filter_by(status=State.available).first()
-        }
+        # mapper_role_query = {
+        #     RoleType.admin: RiddlesModel.query.filter_by(id=id_).first(),
+        #     RoleType.user: RiddlesModel.query.filter_by(id=id_).filter_by(status=State.available).first()
+        # }
         if isinstance(user, UsersModel):
-            if not mapper[user.role]:
+            if not mapper_role_query(id_)[user.role]:
                 raise NotFound("This riddle does not exist.")
-            return mapper[user.role]
+            return mapper_role_query(id_)[user.role]

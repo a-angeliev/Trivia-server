@@ -12,3 +12,4 @@ class UsersRegisterRequestSchema(BaseUsersSchema):
 
 class UsersLoginRequestSchema(BaseUsersSchema):
     pass
+
