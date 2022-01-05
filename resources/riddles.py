@@ -24,7 +24,7 @@ class ListCreateRiddle(Resource):
     def post(self):
         riddle = RiddlesManager.create(request.get_json())
         schema = RiddlesCreateResponseAdminSchema()
-        return schema.dump(riddle)
+        return schema.dump(riddle), 201
 
 
 class RiddleDetails(Resource):

@@ -19,7 +19,7 @@ class CreateEvents(Resource):
         url = url_for("eventaction", token=token)
         final_url = "http://127.0.0.1:5000" + url
         EmailSenderManager.send_email(user.email, url)
-        return {"url": final_url}
+        return {"url": final_url}, 201
 
 
 class EventAction(Resource):

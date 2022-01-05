@@ -13,7 +13,13 @@ class DevelopmentConfig:
     SQLALCHEMY_DATABASE_URI = f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}@localhost:{config('DB_PORT')}/{config('DB_NAME')}"
 
 
-def create_app(config=DevelopmentConfig):
+class TestConfig:
+    DEBUG = True
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}@localhost:{config('DB_PORT')}/{config('TEST_DB_NAME')}"
+
+
+def create_app(config="config.DevelopmentConfig"):
     app = Flask(__name__)
     app.config.from_object(config)
 
