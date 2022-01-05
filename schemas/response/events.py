@@ -1,5 +1,4 @@
 from marshmallow import Schema, fields
-from sqlalchemy.sql.functions import current_user
 
 
 class CreateEventsResponseSchema(Schema):

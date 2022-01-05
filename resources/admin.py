@@ -9,7 +9,6 @@ from util.decorators import permission_required, validate_schema
 
 
 class CreateAdmin(Resource):
-
     @auth.login_required
     @permission_required(RoleType.admin)
     @validate_schema(CreateAdminRequestSchema)

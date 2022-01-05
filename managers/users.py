@@ -12,9 +12,9 @@ class UsersManager:
     def register(user_data):
         user_data["password"] = generate_password_hash(user_data["password"])
         user = UsersModel(**user_data)
-        db.session.add(user)
         try:
-            db.session.commit()
+            db.session.add(user)
+            db.session.flush()
         except Exception as ex:
             if ex.orig.pgcode == UNIQUE_VIOLATION:
                 raise BadRequest("Please login")
@@ -41,5 +41,5 @@ class UsersManager:
             raise NotFound("This user does not exist.")
         admin.role = RoleType.admin
         db.session.add(admin)
-        db.session.commit()
+        db.session.flush()
         return 201

@@ -15,7 +15,7 @@ class EventsModel(db.Model):
     created_on = db.Column(db.DateTime, server_default=func.now())
     started_on = db.Column(db.DateTime)
     ended_on = db.Column(db.DateTime)
-    refund_window = db.Column(db.DateTime, default=(datetime.utcnow() + timedelta(days=15)))
+    refund_window = db.Column(
+        db.DateTime, default=(datetime.utcnow() + timedelta(days=15))
+    )
     current_question = db.Column(db.Integer, default=0)
-
-

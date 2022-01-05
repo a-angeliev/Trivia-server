@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource
 
-from managers.auth import auth, AuthManager
+from managers.auth import auth
 from managers.riddles import RiddlesManager
 from models.enums import RoleType
 from schemas.request.riddles import RiddlesCreateRequestSchema
@@ -48,3 +48,10 @@ class RiddleDetails(Resource):
     def delete(self, id_):
         RiddlesManager.delete(id_)
         return {"message": "Success"}, 204
+
+
+class PublicRiddles(Resource):
+    def get(self):
+        riddles = RiddlesManager.get_all("public")
+        schema = mapper_role_schema["public"]
+        return schema.dump(riddles, many=True)
