@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, jsonify
 from flask_restful import Resource
 
 from managers.auth import auth
@@ -54,4 +54,5 @@ class PublicRiddles(Resource):
     def get(self):
         riddles = RiddlesManager.get_all("public")
         schema = mapper_role_schema["public"]
-        return schema.dump(riddles, many=True)
+        # print(schema.dump(riddles, many=True))
+        return schema.dump(riddles, many=True), 201, {"Access-Control-Allow-Origin": "*"}

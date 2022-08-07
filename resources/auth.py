@@ -1,12 +1,15 @@
 from datetime import datetime, timedelta
 
+import flask
 import jwt
+# from Scripts import flask
 from decouple import config
 from flask import request
 from flask_restful import Resource
 
 from managers.auth import AuthManager
 from managers.users import UsersManager
+from schemas import response
 from schemas.request.users import UsersRegisterRequestSchema, UsersLoginRequestSchema
 from util.decorators import validate_schema
 
@@ -27,6 +30,17 @@ class Register(Resource):
 class Login(Resource):
     @validate_schema(UsersLoginRequestSchema)
     def post(self):
+        print(123)
         user = UsersManager.login(request.get_json())
         token = AuthManager.encode_token(user)
-        return {"token": token}, 200
+        return {"token": token}, 200, {"Access-Control-Allow-Origin": "*"}
+
+    # @validate_schema(UsersLoginRequestSchema)
+    # def post(self):
+    #     user = UsersManager.login(request.get_json())
+    #     print(123)
+    #     token = AuthManager.encode_token(user)
+    #     response = flask.make_response({"token": token})
+    #     response.headers['Access-Control-Allow-Origin'] = '*'
+    #     print(response.headers)
+    #     return response

@@ -3,6 +3,8 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_restful import Api
 
+from flask_cors import CORS
+
 from db import db
 from resources.routes import routes
 
@@ -21,9 +23,12 @@ class TestConfig:
 
 def create_app(config="config.DevelopmentConfig"):
     app = Flask(__name__)
+    CORS(app)
     app.config.from_object(config)
 
     api = Api(app)
     migrate = Migrate(app, db)
     [api.add_resource(*route) for route in routes]
     return app
+
+
