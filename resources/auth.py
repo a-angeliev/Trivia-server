@@ -24,16 +24,15 @@ class Register(Resource):
     def post(self):
         user = UsersManager.register(request.get_json())
         token = AuthManager.encode_token(user)
-        return {"token": token}, 201
+        return {"token": token, "userRole": user.role.value}, 201
 
 
 class Login(Resource):
     @validate_schema(UsersLoginRequestSchema)
     def post(self):
-        print(123)
         user = UsersManager.login(request.get_json())
         token = AuthManager.encode_token(user)
-        return {"token": token}, 200, {"Access-Control-Allow-Origin": "*"}
+        return {"token": token, "userRole": user.role.value}, 200, {"Access-Control-Allow-Origin": "*"}
 
     # @validate_schema(UsersLoginRequestSchema)
     # def post(self):

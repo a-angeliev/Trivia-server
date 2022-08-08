@@ -39,12 +39,14 @@ class EventsManager:
             questions = [q for q in event.questions.split("@")]
             if event.current_question > len(questions):
                 return {
-                    "massage": f"You finished the riddle for {str(event.ended_on - event.started_on).split('.',2)[0]}"
+                    "massage": f"You finished the riddle for {str(event.ended_on - event.started_on).split('.',2)[0]}",
+                    "end": "1"
                 }
             return {
-                f"Question {event.current_question }": questions[
+                f"question": questions[
                     event.current_question - 1
-                ]
+                ],
+                "current_question": event.current_question,
             }
 
     @staticmethod
