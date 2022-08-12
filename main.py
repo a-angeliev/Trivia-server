@@ -17,8 +17,8 @@ def create_tables():
 @app.after_request
 def apply_caching(response):
     response.headers["Access-Control-Allow-Credentials"]=  "true"
-    response.headers["Access-Control-Allow-Methods"] = "GET,HEAD,OPTIONS,POST,PUT"
-    response.headers["Access-Control-Allow-Headers"]="Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,X-Authorization, token, authorization "
+    response.headers["Access-Control-Allow-Methods"] = "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+    response.headers["Access-Control-Allow-Headers"]="Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,X-Authorization, token, authorization,Access-Control-Allow-Origin"
     response.headers["Access-Control-Allow-Origin"] = "*"
     return response
 

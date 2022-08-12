@@ -41,13 +41,13 @@ class RiddleDetails(Resource):
     def put(self, id_):
         updated_riddle = RiddlesManager.update(request.get_json(), id_)
         schema = RiddlesCreateResponseAdminSchema()
-        return schema.dump(updated_riddle)
+        return schema.dump(updated_riddle), 200
 
     @auth.login_required
     @permission_required(RoleType.admin)
     def delete(self, id_):
         RiddlesManager.delete(id_)
-        return {"message": "Success"}, 204
+        return {"message": "Success"}, 200
 
 
 class PublicRiddles(Resource):

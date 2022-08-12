@@ -11,6 +11,7 @@ class BaseCreateResponseSchema(Schema):
     description = fields.String(required=True)
     price = fields.Float(required=True, validate=validate.Range(min=0))
     discount = fields.Float(validate=validate.Range(min=0, max=price))
+    number_of_questions = fields.Integer(required=True)
 
 
 class RiddlesCreateResponsePublicSchema(BaseCreateResponseSchema):
