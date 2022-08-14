@@ -19,3 +19,4 @@ class EventsModel(db.Model):
         db.DateTime, default=(datetime.utcnow() + timedelta(days=15))
     )
     current_question = db.Column(db.Integer, default=0)
+    guessed_answer = db.Column(db.Integer, default=0)

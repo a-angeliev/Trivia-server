@@ -1,9 +1,16 @@
+from flask import Flask
+from flask_migrate import Migrate
+from flask_restful import Api
+from decouple import config
 from config import create_app
 from db import db
+from resources.routes import routes
 
 app = create_app()
+
+
 # app = Flask(__name__)
-# app.config.from_object(DevApplication)
+# app.config.from_object("config.DevelopmentConfig")
 # db.init_app(app)
 #
 # migrate = Migrate(app, db)

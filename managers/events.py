@@ -40,6 +40,8 @@ class EventsManager:
             if event.current_question > len(questions):
                 return {
                     "massage": f"You finished the riddle for {str(event.ended_on - event.started_on).split('.',2)[0]}",
+                    "guessed_answer": event.guessed_answer,
+                    "number_of_questions": questions.__len__(),
                     "end": "1"
                 }
             return {
@@ -47,7 +49,9 @@ class EventsManager:
                     event.current_question - 1
                 ],
                 "current_question": event.current_question,
-            }
+                "guessed_answer": event.guessed_answer,
+                "number_of_questions": questions.__len__()
+             }
 
     @staticmethod
     def check_answer(token):
@@ -60,10 +64,21 @@ class EventsManager:
             return EventsManager.event_current_state(token)
         answer = request.get_json()
         answers = [a for a in event.answers.split("@")]
+
+        if "skip" in answer:
+            event.current_question += 1
+            if event.current_question > len(answers):
+                event.ended_on = datetime.utcnow()
+            db.session.add(event)
+            db.session.flush()
+            return EventsManager.event_current_state(token)
+
         if event.current_question > len(answers):
             return EventsManager.event_current_state(token)
+
         if answer["answer"] == answers[event.current_question - 1]:
             event.current_question += 1
+            event.guessed_answer += 1
             if event.current_question > len(answers):
                 event.ended_on = datetime.utcnow()
             db.session.add(event)
