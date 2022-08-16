@@ -14,5 +14,13 @@ class RiddlesCreateRequestSchema(Schema):
     questions = fields.String(required=True)
     answers = fields.String(required=True)
 
+    # new fields
+    duration = fields.String(required=True)
+    where = fields.String(required=True)
+    google_map = fields.String(required=True)
+
+    #add hint status_code
+    hint = fields.String(required=True)
+
 # class RiddlesEditRequestSchema(RiddlesCreateRequestSchema):
 #     status = EnumField(State)

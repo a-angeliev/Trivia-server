@@ -16,6 +16,13 @@ class EventsManager:
         return event
 
     @staticmethod
+    def get_hint(token, current_question):
+        event = EventsModel.query.filter_by(token=token).first()
+        hints = event.hint.split('@')
+        hint = hints[current_question-1]
+        return hint
+
+    @staticmethod
     def event_current_state(token):
         event = EventsModel.query.filter_by(token=token).first()
         if event.current_question == 0:

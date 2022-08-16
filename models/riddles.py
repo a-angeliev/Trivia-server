@@ -14,3 +14,11 @@ class RiddlesModel(db.Model):
     questions = db.Column(db.Text, nullable=False)
     answers = db.Column(db.Text, nullable=False)
     number_of_questions = db.Column(db.Integer, nullable=False)
+
+    # new Columns
+    duration = db.Column(db.String(255), nullable=True)
+    where = db.Column(db.String(255), nullable=True)
+    google_map = db.Column(db.Text, nullable=True)
+
+    #adding code for hit
+    hint = db.Column(db.Text, nullable=True)

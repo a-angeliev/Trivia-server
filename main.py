@@ -8,6 +8,7 @@ from resources.routes import routes
 
 app = create_app()
 
+# Comment app=create_app() and uncomment the flowling for migrate (flask db migrate , flask db upgrade)
 
 # app = Flask(__name__)
 # app.config.from_object("config.DevelopmentConfig")

@@ -12,6 +12,7 @@ class EventsModel(db.Model):
     token = db.Column(db.String, nullable=False)
     questions = db.Column(db.Text, nullable=False)
     answers = db.Column(db.Text, nullable=False)
+    hint = db.Column(db.Text, nullable=True)
     created_on = db.Column(db.DateTime, server_default=func.now())
     started_on = db.Column(db.DateTime)
     ended_on = db.Column(db.DateTime)

@@ -15,7 +15,8 @@ class CreateEvents(Resource):
         token = AuthManager.encode_token(user)
         questions = riddles.questions
         answers = riddles.answers
-        event = EventsManager.create(token=token, questions=questions, answers=answers)
+        hint = riddles.hint
+        event = EventsManager.create(token=token, questions=questions, answers=answers, hint=hint)
         url = url_for("eventaction", token=token)
         final_url = "http://localhost:3000" + url
         EmailSenderManager.send_email(user.email, url)
@@ -33,4 +34,12 @@ class EventAction(Resource):
     def post():
         token = request.args.get("token")
         result = EventsManager.check_answer(token)
+        return result
+
+#hint logic
+class EventHint(Resource):
+
+    def get(self, current_question_):
+        token = request.args.get("token")
+        result = EventsManager.get_hint(token, current_question_)
         return result
