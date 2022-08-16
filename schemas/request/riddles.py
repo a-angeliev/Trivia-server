@@ -1,4 +1,8 @@
+import required
 from marshmallow import Schema, fields, validate
+from marshmallow_enum import EnumField
+
+from models import State
 
 
 class RiddlesCreateRequestSchema(Schema):
@@ -9,3 +13,6 @@ class RiddlesCreateRequestSchema(Schema):
     number_of_questions = fields.Integer(required=True, validate=validate.Range(min=0))
     questions = fields.String(required=True)
     answers = fields.String(required=True)
+
+# class RiddlesEditRequestSchema(RiddlesCreateRequestSchema):
+#     status = EnumField(State)

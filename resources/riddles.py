@@ -40,6 +40,7 @@ class RiddleDetails(Resource):
     @validate_schema(RiddlesCreateRequestSchema)
     def put(self, id_):
         updated_riddle = RiddlesManager.update(request.get_json(), id_)
+        print(updated_riddle)
         schema = RiddlesCreateResponseAdminSchema()
         return schema.dump(updated_riddle), 200
 

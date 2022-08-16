@@ -17,7 +17,7 @@ class CreateEvents(Resource):
         answers = riddles.answers
         event = EventsManager.create(token=token, questions=questions, answers=answers)
         url = url_for("eventaction", token=token)
-        final_url = "http://127.0.0.1:5000" + url
+        final_url = "http://localhost:3000" + url
         EmailSenderManager.send_email(user.email, url)
         return {"url": final_url}, 201
 
