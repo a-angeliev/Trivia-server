@@ -2,7 +2,8 @@ from decouple import config
 from flask import Flask
 from flask_migrate import Migrate
 from flask_restful import Api
-
+from models.faq import FaqModel
+from models.discount import DiscountModel
 from flask_cors import CORS
 
 from db import db

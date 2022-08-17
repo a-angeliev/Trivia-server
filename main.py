@@ -6,17 +6,17 @@ from config import create_app
 from db import db
 from resources.routes import routes
 
-app = create_app()
+# app = create_app()
 
 # Comment app=create_app() and uncomment the flowling for migrate (flask db migrate , flask db upgrade)
 
-# app = Flask(__name__)
-# app.config.from_object("config.DevelopmentConfig")
-# db.init_app(app)
-#
-# migrate = Migrate(app, db)
-# api = Api(app)
-# [api.add_resource(*r) for r in routes]
+app = Flask(__name__)
+app.config.from_object("config.DevelopmentConfig")
+db.init_app(app)
+
+migrate = Migrate(app, db)
+api = Api(app)
+[api.add_resource(*r) for r in routes]
 @app.before_first_request
 def create_tables():
     db.init_app(app)
