@@ -1,6 +1,6 @@
 from resources.admin import CreateAdmin
 from resources.auth import Register, Login
-from resources.discount import DiscountValidation
+from resources.discount import DiscountValidation, ListDiscounts, EditDiscount
 from resources.events import CreateEvents, EventAction, EventHint
 from resources.riddles import ListCreateRiddle, RiddleDetails, PublicRiddles
 from resources.transactions import CreateTransaction
@@ -16,5 +16,7 @@ routes = (
     (CreateAdmin, "/admin"),
     (PublicRiddles, "/riddles/public"),
     (DiscountValidation, "/discount/validate"),
+    (ListDiscounts, "/discounts"),
+    (EditDiscount, "/discounts/<int:id_>/edit"),
     (CreateTransaction, "/transaction"),
 )
