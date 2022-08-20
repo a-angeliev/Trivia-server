@@ -2,6 +2,7 @@ import json
 
 from db import db
 from models.transactions import TransactionsModel
+from schemas import request
 
 
 class TransactionsManager:
@@ -13,3 +14,7 @@ class TransactionsManager:
         db.session.add(transaction)
         db.session.flush()
         return {"status": "create"}, 201
+
+    @staticmethod
+    def get_all():
+        return TransactionsModel.query.all()
