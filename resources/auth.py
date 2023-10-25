@@ -32,7 +32,7 @@ class Login(Resource):
     def post(self):
         user = UsersManager.login(request.get_json())
         token = AuthManager.encode_token(user)
-        return {"token": token, "userRole": user.role.value}, 200, {"Access-Control-Allow-Origin": "*"}
+        return {"token": token, "userRole": user.role.value, "email": user.email}, 200, {"Access-Control-Allow-Origin": "*"}
 
     # @validate_schema(UsersLoginRequestSchema)
     # def post(self):
