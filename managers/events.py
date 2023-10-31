@@ -4,6 +4,7 @@ from flask import request
 
 from db import db
 from models.events import EventsModel
+from servvices.email import EmailSender
 from servvices.weather import WeatherInfo
 
 
@@ -35,11 +36,11 @@ class EventsManager:
                         "Wind is >5 km/h so we dont recommend to start riddle now."
                     )
                 return {
-                    "massage": f"You should start the riddle. Once the riddle start there is no money refunds anymore.{massage}"
+                    "massage": f"Once you start it, you cannot get a refund and you cannot stop the game.{massage}"
                 }
             except:
                 return {
-                    "massage": "You should start the riddle. Once the riddle start there is no money refunds anymore."
+                    "massage": "Once you start it, you cannot get a refund and you cannot stop the game."
                 }
 
         else:

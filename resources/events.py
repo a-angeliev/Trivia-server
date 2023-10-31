@@ -5,6 +5,7 @@ from managers.auth import auth, AuthManager
 from managers.email import EmailSenderManager
 from managers.events import EventsManager
 from managers.riddles import RiddlesManager
+from servvices.email import EmailSender
 
 
 class CreateEvents(Resource):
@@ -19,7 +20,7 @@ class CreateEvents(Resource):
         event = EventsManager.create(token=token, questions=questions, answers=answers, hint=hint)
         url = url_for("eventaction", token=token)
         final_url = "http://localhost:3000" + url
-        EmailSenderManager.send_email(user.email, url)
+        EmailSender.send(user.email, final_url, "This is link for access to the riddle!")
         return {"url": final_url}, 201
 
 
