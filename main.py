@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_migrate import Migrate
 from flask_restful import Api
 from decouple import config
@@ -21,9 +21,6 @@ app = create_app()
 def create_tables():
     db.init_app(app)
     db.create_all()
-
-
-
 
 @app.after_request
 def apply_caching(response):

@@ -30,6 +30,7 @@ class Register(Resource):
 class Login(Resource):
     @validate_schema(UsersLoginRequestSchema)
     def post(self):
+        print(request.get_json())
         user = UsersManager.login(request.get_json())
         token = AuthManager.encode_token(user)
         response = {"token": token, "userRole": user.role.value, "email": user.email}

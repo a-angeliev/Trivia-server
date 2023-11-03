@@ -1,7 +1,10 @@
 # Flask based REST API application 
 
-This is a game-based application for riddles.It's purpose is to provide a riddles for an outdoor entertainment for a group of people. The target of the game is to find the answer of all questions.   
+This is a game-based application for riddles.Its purpose is to provide a riddles for an outdoor entertainment for a group of people. The target of the game is to find the answer of all questions.   
 
+
+\*\* This repo contains only the Server-side part!  
+\*\*The client for this project can be found [here](https://github.com/a-angeliev/Trivia-client)
 
 ## Install and run the app
 
