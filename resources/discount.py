@@ -7,7 +7,10 @@ from flask import request
 from managers.auth import auth
 from managers.discount import DiscountManager
 from models import RoleType
-from schemas.response.discount import DiscountListResponseSchema, DiscountCreateResponseSchema
+from schemas.response.discount import (
+    DiscountListResponseSchema,
+    DiscountCreateResponseSchema,
+)
 from util.decorators import permission_required
 
 
@@ -30,18 +33,22 @@ class ListDiscounts(Resource):
         schema = DiscountListResponseSchema()
         return schema.dumps(discounts, many=True), 200
 
-
     @auth.login_required
     @permission_required(RoleType.admin)
     def post(self):
-        discount_data= request.get_json()
+        discount_data = request.get_json()
         print(discount_data)
         print(discount_data["started_on"])
-        discount_data["started_on"] = datetime.strptime(discount_data['started_on'], '%Y-%m-%dT%H:%M:%S.%fZ')
-        discount_data["ended_on"] = datetime.strptime(discount_data['ended_on'], '%Y-%m-%dT%H:%M:%S.%fZ')
+        discount_data["started_on"] = datetime.strptime(
+            discount_data["started_on"], "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
+        discount_data["ended_on"] = datetime.strptime(
+            discount_data["ended_on"], "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
         result = DiscountManager.create(discount_data)
         schema = DiscountCreateResponseSchema()
         return schema.dumps(result), 200
+
 
 class EditDiscount(Resource):
     @auth.login_required
@@ -50,8 +57,12 @@ class EditDiscount(Resource):
         discount_data = request.get_json()
         print(discount_data)
         print(discount_data["started_on"])
-        discount_data["started_on"] = datetime.strptime(discount_data['started_on'], '%Y-%m-%dT%H:%M:%S.%fZ')
-        discount_data["ended_on"] = datetime.strptime(discount_data['ended_on'], '%Y-%m-%dT%H:%M:%S.%fZ')
+        discount_data["started_on"] = datetime.strptime(
+            discount_data["started_on"], "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
+        discount_data["ended_on"] = datetime.strptime(
+            discount_data["ended_on"], "%Y-%m-%dT%H:%M:%S.%fZ"
+        )
         updated_discount = DiscountManager.update(discount_data, id_)
         schema = DiscountCreateResponseSchema()
         return schema.dumps(updated_discount), 200

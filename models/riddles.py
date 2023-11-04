@@ -20,5 +20,5 @@ class RiddlesModel(db.Model):
     where = db.Column(db.String(255), nullable=True)
     google_map = db.Column(db.Text, nullable=True)
 
-    #adding code for hit
+    # adding code for hit
     hint = db.Column(db.Text, nullable=True)

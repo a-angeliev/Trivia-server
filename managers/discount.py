@@ -17,7 +17,7 @@ class DiscountManager:
 
     @staticmethod
     def update(discount_data, id_):
-        discount_q = DiscountModel.query.filter_by(id = id_)
+        discount_q = DiscountModel.query.filter_by(id=id_)
         discount = discount_q.first()
         if not discount:
             raise NotFound("This discount does not exist.")
@@ -29,7 +29,7 @@ class DiscountManager:
 
     @staticmethod
     def delete(id_):
-        discount = DiscountModel.query.filter_by(id = id_).first()
+        discount = DiscountModel.query.filter_by(id=id_).first()
         if not discount:
             raise NotFound("This discount does not exist.")
 
@@ -40,10 +40,14 @@ class DiscountManager:
     @staticmethod
     def is_valid(discount_data):
         discount_data = json.loads(discount_data)
-        # print(discount_data["discount_code"])
-        discount = DiscountModel.query.filter_by(code=discount_data["discount_code"]).first()
+        discount = DiscountModel.query.filter_by(
+            code=discount_data["discount_code"]
+        ).first()
         if discount:
-            if datetime.utcnow() > discount.started_on and datetime.utcnow() < discount.ended_on:
+            if (
+                datetime.utcnow() > discount.started_on
+                and datetime.utcnow() < discount.ended_on
+            ):
                 return {"is_valid": True, "discount": discount.discount}
         return {"is_valid": False}
 

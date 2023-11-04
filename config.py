@@ -32,6 +32,3 @@ def create_app(config="config.DevelopmentConfig"):
     migrate = Migrate(app, db)
     [api.add_resource(*route) for route in routes]
     return app
-
-
-

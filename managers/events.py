@@ -4,7 +4,6 @@ from flask import request
 
 from db import db
 from models.events import EventsModel
-from servvices.email import EmailSender
 from servvices.weather import WeatherInfo
 
 
@@ -19,8 +18,8 @@ class EventsManager:
     @staticmethod
     def get_hint(token, current_question):
         event = EventsModel.query.filter_by(token=token).first()
-        hints = event.hint.split('@')
-        hint = hints[current_question-1]
+        hints = event.hint.split("@")
+        hint = hints[current_question - 1]
         return hint
 
     @staticmethod
@@ -50,16 +49,14 @@ class EventsManager:
                     "massage": f"You finished the riddle for {str(event.ended_on - event.started_on).split('.',2)[0]}",
                     "guessed_answer": event.guessed_answer,
                     "number_of_questions": questions.__len__(),
-                    "end": "1"
+                    "end": "1",
                 }
             return {
-                f"question": questions[
-                    event.current_question - 1
-                ],
+                f"question": questions[event.current_question - 1],
                 "current_question": event.current_question,
                 "guessed_answer": event.guessed_answer,
-                "number_of_questions": questions.__len__()
-             }
+                "number_of_questions": questions.__len__(),
+            }
 
     @staticmethod
     def check_answer(token):

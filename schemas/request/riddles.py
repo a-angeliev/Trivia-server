@@ -1,8 +1,4 @@
-import required
 from marshmallow import Schema, fields, validate
-from marshmallow_enum import EnumField
-
-from models import State
 
 
 class RiddlesCreateRequestSchema(Schema):
@@ -19,8 +15,5 @@ class RiddlesCreateRequestSchema(Schema):
     where = fields.String(required=True)
     google_map = fields.String(required=True)
 
-    #add hint status_code
+    # add hint status_code
     hint = fields.String(required=True)
-
-# class RiddlesEditRequestSchema(RiddlesCreateRequestSchema):
-#     status = EnumField(State)

@@ -2,7 +2,7 @@ from db import db
 
 
 class DiscountModel(db.Model):
-    __tablename__ = 'discount'
+    __tablename__ = "discount"
 
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(255), nullable=False)

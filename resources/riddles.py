@@ -56,4 +56,8 @@ class PublicRiddles(Resource):
         riddles = RiddlesManager.get_all("public")
         schema = mapper_role_schema["public"]
         # print(schema.dump(riddles, many=True))
-        return schema.dump(riddles, many=True), 201, {"Access-Control-Allow-Origin": "*"}
+        return (
+            schema.dump(riddles, many=True),
+            201,
+            {"Access-Control-Allow-Origin": "*"},
+        )

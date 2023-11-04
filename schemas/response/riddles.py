@@ -18,6 +18,7 @@ class BaseCreateResponseSchema(Schema):
     where = fields.String(required=True)
     google_map = fields.String(required=True)
 
+
 class RiddlesCreateResponsePublicSchema(BaseCreateResponseSchema):
     pass
 
@@ -32,4 +33,3 @@ class RiddlesCreateResponseAdminSchema(BaseCreateResponseSchema):
     answers = fields.String(required=True)
     status = EnumField(State)
     hint = fields.String(required=True)
-
